@@ -2,6 +2,7 @@
   {
     "id": 1,
     "nombre": "Cabañas Mirador del Elqui",
+    "direccion": "Camino Público s/n, Sector El Molle",
     "provincia": "Elqui",
     "comuna": "Vicuña",
     "categoria": "Hospedaje",
@@ -18,6 +19,7 @@
   {
     "id": 2,
     "nombre": "Monumento Natural Valle del Encanto",
+    "direccion": "Ruta 45 s/n, Interior Ovalle",
     "provincia": "Limarí",
     "comuna": "Ovalle",
     "categoria": "Parques y Naturaleza",
@@ -34,6 +36,7 @@
   {
     "id": 3,
     "nombre": "Bahía de Pichidangui",
+    "direccion": "Costanera Principal s/n, Balneario Pichidangui",
     "provincia": "Choapa",
     "comuna": "Los Vilos",
     "categoria": "Deportes y Playas",
@@ -50,6 +53,7 @@
   {
     "id": 4,
     "nombre": "Faro Monumental de La Serena",
+    "direccion": "Avenida del Mar con Los Nísperos",
     "provincia": "Elqui",
     "comuna": "La Serena",
     "categoria": "Patrimonio",

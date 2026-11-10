@@ -29,9 +29,10 @@ export default function App() {
   const [provinciaSel, setProvinciaSel] = useState('Todas');
   const [comunaSel, setComunaSel] = useState('Todas');
 
-  // Estado del Formulario de Ingreso Manual
+  // Estado del Formulario de Ingreso Manual (Incluye dirección)
   const [nuevoPunto, setNuevoPunto] = useState({
     nombre: '',
+    direccion: '',
     provincia: 'Elqui',
     comuna: 'La Serena',
     categoria: 'Hospedaje',
@@ -98,6 +99,7 @@ export default function App() {
     // Resetear formulario
     setNuevoPunto({
       nombre: '',
+      direccion: '',
       provincia: 'Elqui',
       comuna: 'La Serena',
       categoria: 'Hospedaje',
@@ -220,22 +222,35 @@ export default function App() {
           {/* Grid Tarjetas */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {puntosPublicos.map((item) => {
-              const mapUrl = item.lat && item.lng 
-                ? `https://www.google.com/maps?q=${item.lat},${item.lng}`
-                : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.nombre + ' ' + item.comuna)}`;
+              // Construcción inteligente de la URL de Google Maps
+              let mapUrl = '';
+              if (item.lat && item.lng) {
+                mapUrl = `https://www.google.com/maps?q=${item.lat},${item.lng}`;
+              } else {
+                const busqueda = [item.nombre, item.direccion, item.comuna, 'Coquimbo, Chile']
+                  .filter(Boolean)
+                  .join(', ');
+                mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(busqueda)}`;
+              }
 
               return (
                 <article key={item.id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between hover:shadow-md transition-shadow">
                   <div>
-                    <div className="flex justify-between items-start mb-2">
+                    <div className="flex justify-between items-start mb-1">
                       <h2 className="text-lg font-bold text-slate-900 leading-tight">{item.nombre}</h2>
-                      <span className="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-md border border-blue-100">
+                      <span className="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-md border border-blue-100 shrink-0 ml-2">
                         {item.categoria}
                       </span>
                     </div>
-                    <p className="text-xs font-semibold text-slate-500 mb-2">
-                      📍 {item.comuna} · <span className="text-slate-400">Provincia de {item.provincia}</span>
-                    </p>
+
+                    {/* Dirección y Ubicación */}
+                    <div className="text-xs font-medium text-slate-500 mb-3 space-y-0.5">
+                      <p className="font-semibold text-slate-700">📍 {item.comuna} · <span className="text-slate-400">Provincia de {item.provincia}</span></p>
+                      {item.direccion && (
+                        <p className="text-slate-500 italic">🏠 {item.direccion}</p>
+                      )}
+                    </div>
+
                     <p className="text-slate-600 text-sm mb-4 leading-relaxed">{item.descripcion}</p>
                   </div>
 
@@ -278,7 +293,7 @@ export default function App() {
           <section className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
             <h2 className="text-xl font-bold text-slate-900 mb-1">📝 Ingreso Manual de Prestador</h2>
             <p className="text-xs text-slate-500 mb-6">
-              Registra prestadores sin presencia digital o recolectados en terreno. Los campos de web o reservas son opcionales.
+              Registra prestadores sin presencia digital o recolectados en terreno.
             </p>
 
             <form onSubmit={handleGuardarNuevo} className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-semibold text-slate-700">
@@ -305,6 +320,17 @@ export default function App() {
                     <option key={cat} value={cat}>{cat}</option>
                   ))}
                 </select>
+              </div>
+
+              <div className="md:col-span-3">
+                <label className="block mb-1">Dirección / Calle y Número / Referencia Geográfica</label>
+                <input
+                  type="text"
+                  placeholder="Ej: Av. del Mar 4400, o Calle Prat 123, o Km 15 Ruta D-41"
+                  value={nuevoPunto.direccion}
+                  onChange={(e) => setNuevoPunto({ ...nuevoPunto, direccion: e.target.value })}
+                  className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
+                />
               </div>
 
               <div>
@@ -424,7 +450,7 @@ export default function App() {
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="border-b border-slate-200 bg-slate-50 text-slate-500 uppercase">
-                  <th className="p-3">Prestador</th>
+                  <th className="p-3">Prestador / Dirección</th>
                   <th className="p-3">Ubicación</th>
                   <th className="p-3">Categoría</th>
                   <th className="p-3">Estado Gobernanza</th>
@@ -434,7 +460,10 @@ export default function App() {
               <tbody className="divide-y divide-slate-100">
                 {puntos.map((item) => (
                   <tr key={item.id} className="hover:bg-slate-50">
-                    <td className="p-3 font-bold text-slate-800">{item.nombre}</td>
+                    <td className="p-3">
+                      <p className="font-bold text-slate-800">{item.nombre}</p>
+                      {item.direccion && <p className="text-[11px] text-slate-400">{item.direccion}</p>}
+                    </td>
                     <td className="p-3 text-slate-600">{item.comuna} ({item.provincia})</td>
                     <td className="p-3 text-slate-600">{item.categoria}</td>
                     <td className="p-3">

@@ -7,14 +7,13 @@ const ESTRUCTURA_TERRITORIAL = {
   Choapa: ['Illapel', 'Los Vilos', 'Salamanca', 'Canela']
 };
 
-const CATEGORIAS = [
+const CATEGORIAS_DISPONIBLES = [
+  'Todas',
   'Hospedaje',
-  'Gastronomía',
   'Parques y Naturaleza',
   'Patrimonio',
   'Deportes y Playas',
-  'Artesanía y Comercio Local',
-  'Servicios Generales'
+  'Infraestructura Hídrica'
 ];
 
 export default function App() {
@@ -28,8 +27,9 @@ export default function App() {
   // Filtros vista pública
   const [provinciaSel, setProvinciaSel] = useState('Todas');
   const [comunaSel, setComunaSel] = useState('Todas');
+  const [categoriaSel, setCategoriaSel] = useState('Todas');
 
-  // Estado del Formulario de Ingreso Manual (Incluye dirección)
+  // Estado del Formulario de Ingreso Manual
   const [nuevoPunto, setNuevoPunto] = useState({
     nombre: '',
     direccion: '',
@@ -63,7 +63,6 @@ export default function App() {
       });
   }, []);
 
-  // Cambiar estado de Visto Bueno (Aprobado true/false)
   const toggleAprobado = (id) => {
     setPuntos((prev) =>
       prev.map((item) =>
@@ -72,14 +71,12 @@ export default function App() {
     );
   };
 
-  // Eliminar un registro
   const eliminarPunto = (id) => {
     if (confirm('¿Estás seguro de eliminar este registro?')) {
       setPuntos((prev) => prev.filter((item) => item.id !== id));
     }
   };
 
-  // Manejador del Formulario de Ingreso Manual
   const handleGuardarNuevo = (e) => {
     e.preventDefault();
     if (!nuevoPunto.nombre || !nuevoPunto.descripcion) {
@@ -96,7 +93,6 @@ export default function App() {
 
     setPuntos([itemCreado, ...puntos]);
     
-    // Resetear formulario
     setNuevoPunto({
       nombre: '',
       direccion: '',
@@ -117,12 +113,13 @@ export default function App() {
     alert('¡Prestador ingresado exitosamente!');
   };
 
-  // Filtrado vista pública (Solo elementos con visto bueno: aprobado === true)
+  // Filtrado vista pública (Provincia + Comuna + Categoria + Visto Bueno)
   const puntosPublicos = puntos.filter((item) => {
     const esAprobado = item.aprobado === true;
     const coincideProvincia = provinciaSel === 'Todas' || item.provincia === provinciaSel;
     const coincideComuna = comunaSel === 'Todas' || item.comuna === comunaSel;
-    return esAprobado && coincideProvincia && coincideComuna;
+    const coincideCategoria = categoriaSel === 'Todas' || item.categoria === categoriaSel;
+    return esAprobado && coincideProvincia && coincideComuna && coincideCategoria;
   });
 
   const comunasDisponibles = provinciaSel === 'Todas'
@@ -131,7 +128,7 @@ export default function App() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6 font-sans bg-slate-50 min-h-screen">
-      {/* Encabezado y Selector de Vistas */}
+      {/* Encabezado */}
       <header className="mb-6 border-b pb-4 border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-extrabold text-blue-900 tracking-tight">Turismo Coquimbo</h1>
@@ -140,7 +137,6 @@ export default function App() {
           </p>
         </div>
 
-        {/* Botones de Cambio de Vista */}
         <div className="flex bg-slate-200 p-1 rounded-xl text-xs font-bold">
           <button
             onClick={() => setVista('publico')}
@@ -164,8 +160,9 @@ export default function App() {
       {/* VISTA PÚBLICA */}
       {vista === 'publico' && (
         <main>
-          {/* Panel de Filtros */}
+          {/* Panel de Filtros Tripartito (Provincia > Comuna > Rubro) */}
           <section className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 space-y-4">
+            {/* Fila 1: Provincias */}
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
                 1. Seleccionar Provincia:
@@ -187,7 +184,8 @@ export default function App() {
               </div>
             </div>
 
-            <div>
+            {/* Fila 2: Comunas Dinámicas */}
+            <div className="border-t pt-3 border-slate-100">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
                 2. Filtrar por Comuna {provinciaSel !== 'Todas' && `(${provinciaSel})`}:
               </span>
@@ -217,12 +215,33 @@ export default function App() {
                 ))}
               </div>
             </div>
+
+            {/* Fila 3: Filtro por Rubro / Categoría */}
+            <div className="border-t pt-3 border-slate-100">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
+                3. Filtrar por Rubro o Categoría:
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {CATEGORIAS_DISPONIBLES.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setCategoriaSel(cat)}
+                    className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                      categoriaSel === cat
+                        ? 'bg-amber-600 text-white shadow-sm'
+                        : 'bg-amber-50 text-amber-800 hover:bg-amber-100 border border-amber-200'
+                    }`}
+                  >
+                    {cat === 'Todas' ? '🏷️ Todos los rubros' : cat}
+                  </button>
+                ))}
+              </div>
+            </div>
           </section>
 
           {/* Grid Tarjetas */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {puntosPublicos.map((item) => {
-              // Construcción inteligente de la URL de Google Maps
               let mapUrl = '';
               if (item.lat && item.lng) {
                 mapUrl = `https://www.google.com/maps?q=${item.lat},${item.lng}`;
@@ -238,12 +257,11 @@ export default function App() {
                   <div>
                     <div className="flex justify-between items-start mb-1">
                       <h2 className="text-lg font-bold text-slate-900 leading-tight">{item.nombre}</h2>
-                      <span className="text-xs bg-blue-50 text-blue-700 font-semibold px-2.5 py-1 rounded-md border border-blue-100 shrink-0 ml-2">
+                      <span className="text-xs bg-amber-50 text-amber-800 font-semibold px-2.5 py-1 rounded-md border border-amber-200 shrink-0 ml-2">
                         {item.categoria}
                       </span>
                     </div>
 
-                    {/* Dirección y Ubicación */}
                     <div className="text-xs font-medium text-slate-500 mb-3 space-y-0.5">
                       <p className="font-semibold text-slate-700">📍 {item.comuna} · <span className="text-slate-400">Provincia de {item.provincia}</span></p>
                       {item.direccion && (
@@ -289,7 +307,6 @@ export default function App() {
       {/* VISTA PANEL DE ADMINISTRACIÓN */}
       {vista === 'admin' && (
         <main className="space-y-8">
-          {/* Formulario Ingreso Manual */}
           <section className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
             <h2 className="text-xl font-bold text-slate-900 mb-1">📝 Ingreso Manual de Prestador</h2>
             <p className="text-xs text-slate-500 mb-6">
@@ -302,7 +319,7 @@ export default function App() {
                 <input
                   type="text"
                   required
-                  placeholder="Ej: Artesanías Don Manuel"
+                  placeholder="Ej: Embalse Puclaro"
                   value={nuevoPunto.nombre}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, nombre: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
@@ -310,13 +327,13 @@ export default function App() {
               </div>
 
               <div>
-                <label className="block mb-1">Categoría *</label>
+                <label className="block mb-1">Rubro / Categoría *</label>
                 <select
                   value={nuevoPunto.categoria}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, categoria: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
                 >
-                  {CATEGORIAS.map((cat) => (
+                  {CATEGORIAS_DISPONIBLES.filter(c => c !== 'Todas').map((cat) => (
                     <option key={cat} value={cat}>{cat}</option>
                   ))}
                 </select>
@@ -326,7 +343,7 @@ export default function App() {
                 <label className="block mb-1">Dirección / Calle y Número / Referencia Geográfica</label>
                 <input
                   type="text"
-                  placeholder="Ej: Av. del Mar 4400, o Calle Prat 123, o Km 15 Ruta D-41"
+                  placeholder="Ej: Ruta D-41 Km 50"
                   value={nuevoPunto.direccion}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, direccion: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
@@ -440,7 +457,6 @@ export default function App() {
             </form>
           </section>
 
-          {/* Tabla de Gobernanza / Visto Bueno */}
           <section className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 overflow-x-auto">
             <h2 className="text-xl font-bold text-slate-900 mb-1">🛡️ Control de Gobernanza y Visto Bueno</h2>
             <p className="text-xs text-slate-500 mb-4">
@@ -452,7 +468,7 @@ export default function App() {
                 <tr className="border-b border-slate-200 bg-slate-50 text-slate-500 uppercase">
                   <th className="p-3">Prestador / Dirección</th>
                   <th className="p-3">Ubicación</th>
-                  <th className="p-3">Categoría</th>
+                  <th className="p-3">Rubro</th>
                   <th className="p-3">Estado Gobernanza</th>
                   <th className="p-3 text-right">Acciones</th>
                 </tr>
@@ -482,7 +498,7 @@ export default function App() {
                             : 'bg-emerald-600 text-white hover:bg-emerald-700'
                         }`}
                       >
-                        {item.aprobado ? 'Revocar' : 'Dar Visto Bueno'}
+                        {item.aprolbado ? 'Revocar' : 'Dar Visto Bueno'}
                       </button>
                       <button
                         onClick={() => eliminarPunto(item.id)}

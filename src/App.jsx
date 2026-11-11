@@ -28,12 +28,13 @@ const REGIONES_CHILE = {
   }
 };
 
-// Categorías oficiales enfocadas en patrimonio e infraestructura pública
+// Categorías oficiales actualizadas incluyendo Humedales y Áreas Protegidas
 const CATEGORIAS_PATRIMONIALES = [
   'Todas',
   'Monumentos Históricos',
   'Plazas y Espacios Públicos',
   'Parques y reservas',
+  'Humedales y Ecosistemas',
   'Infraestructura Hídrica',
   'Playas y Borde Costero'
 ];
@@ -148,7 +149,7 @@ export default function App() {
     ? Object.values(estructuraProvincias).flat()
     : estructuraProvincias[provinciaSel] || [];
 
-  // Filtrado vista pública (Verifica estricta pertenencia de comuna a la región seleccionada)
+  // Filtrado vista pública
   const puntosPublicos = puntos.filter((item) => {
     const esAprobado = item.aprobado === true;
     
@@ -337,14 +338,17 @@ export default function App() {
                   mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(busqueda)}`;
                 }
 
+                // Imagen por defecto institucional si el item no trae una asignada
+                const imagenMostrada = item.imagen && item.imagen.trim() !== '' 
+                  ? item.imagen 
+                  : 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80';
+
                 return (
                   <article key={item.id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between hover:shadow-md transition-shadow">
                     <div>
-                      {item.imagen && (
-                        <div className="mb-4 overflow-hidden rounded-lg h-48 bg-slate-100 border border-slate-200">
-                          <img src={item.imagen} alt={item.nombre} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-                        </div>
-                      )}
+                      <div className="mb-4 overflow-hidden rounded-lg h-48 bg-slate-100 border border-slate-200">
+                        <img src={imagenMostrada} alt={item.nombre} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                      </div>
 
                       <div className="flex justify-between items-start mb-1">
                         <h2 className="text-lg font-bold text-slate-900 leading-tight">{item.nombre}</h2>

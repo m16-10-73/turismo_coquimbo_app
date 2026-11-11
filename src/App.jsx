@@ -53,7 +53,7 @@ export default function App() {
   const [comunaSel, setComunaSel] = useState('Todas');
   const [categoriaSel, setCategoriaSel] = useState('Todas');
 
-  // Estado del Formulario de Ingreso Manual
+  // Estado del Formulario de Ingreso Manual (sin campo de imagen)
   const [nuevoPunto, setNuevoPunto] = useState({
     nombre: '',
     direccion: '',
@@ -61,7 +61,6 @@ export default function App() {
     comuna: 'La Serena',
     categoria: 'Monumentos Históricos',
     descripcion: '',
-    imagen: '',
     telefono: '',
     whatsapp: '',
     email: '',
@@ -125,7 +124,6 @@ export default function App() {
       comuna: 'La Serena',
       categoria: 'Monumentos Históricos',
       descripcion: '',
-      imagen: '',
       telefono: '',
       whatsapp: '',
       email: '',
@@ -319,7 +317,7 @@ export default function App() {
             </div>
           </section>
 
-          {/* Grid de Hitos */}
+          {/* Grid de Hitos (Sin imágenes, enfocado en datos duros y enlaces) */}
           {puntosPublicos.length === 0 ? (
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center text-slate-500">
               <p className="text-lg font-semibold mb-1">No hay hitos catastrados para esta selección en la {regionSel}.</p>
@@ -338,18 +336,9 @@ export default function App() {
                   mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(busqueda)}`;
                 }
 
-                // Imagen por defecto institucional si el item no trae una asignada
-                const imagenMostrada = item.imagen && item.imagen.trim() !== '' 
-                  ? item.imagen 
-                  : 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=800&q=80';
-
                 return (
                   <article key={item.id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between hover:shadow-md transition-shadow">
                     <div>
-                      <div className="mb-4 overflow-hidden rounded-lg h-48 bg-slate-100 border border-slate-200">
-                        <img src={imagenMostrada} alt={item.nombre} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-                      </div>
-
                       <div className="flex justify-between items-start mb-1">
                         <h2 className="text-lg font-bold text-slate-900 leading-tight">{item.nombre}</h2>
                         <span className="text-[11px] bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded-md border border-slate-200 shrink-0 ml-2">
@@ -420,24 +409,13 @@ export default function App() {
                 </select>
               </div>
 
-              <div className="md:col-span-2">
+              <div className="md:col-span-3">
                 <label className="block mb-1">Ubicación / Dirección / Referencia Geográfica</label>
                 <input
                   type="text"
                   placeholder="Ej: Desembocadura costera"
                   value={nuevoPunto.direccion}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, direccion: e.target.value })}
-                  className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block mb-1">URL de Fotografía (Opcional)</label>
-                <input
-                  type="url"
-                  placeholder="https://images.unsplash.com/..."
-                  value={nuevoPunto.imagen}
-                  onChange={(e) => setNuevoPunto({ ...nuevoPunto, imagen: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
                 />
               </div>

@@ -146,13 +146,20 @@ export default function App() {
     ? Object.values(estructuraProvincias).flat()
     : estructuraProvincias[provinciaSel] || [];
 
-  // Filtrado vista pública
+  // Filtrado vista pública (Verifica estricta pertenencia de comuna a la región seleccionada)
   const puntosPublicos = puntos.filter((item) => {
     const esAprobado = item.aprobado === true;
+    
+    // Validar que la comuna del hito pertenezca a la región seleccionada actualmente
+    const comunaPerteneceARegion = Object.values(estructuraProvincias).some((comunasArray) =>
+      comunasArray.includes(item.comuna)
+    );
+
     const coincideProvincia = provinciaSel === 'Todas' || item.provincia === provinciaSel;
     const coincideComuna = comunaSel === 'Todas' || item.comuna === comunaSel;
     const coincideCategoria = categoriaSel === 'Todas' || item.categoria === categoriaSel;
-    return esAprobado && coincideProvincia && coincideComuna && coincideCategoria;
+
+    return esAprobado && comunaPerteneceARegion && coincideProvincia && coincideComuna && coincideCategoria;
   });
 
   return (
@@ -316,52 +323,59 @@ export default function App() {
           </section>
 
           {/* Grid de Hitos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {puntosPublicos.map((item) => {
-              let mapUrl = '';
-              if (item.lat && item.lng) {
-                mapUrl = `https://www.google.com/maps?q=${item.lat},${item.lng}`;
-              } else {
-                const busqueda = [item.nombre, item.direccion, item.comuna, `${regionSel}, Chile`]
-                  .filter(Boolean)
-                  .join(', ');
-                mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(busqueda)}`;
-              }
+          {puntosPublicos.length === 0 ? (
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center text-slate-500">
+              <p className="text-lg font-semibold mb-1">No hay hitos catastrados para esta selección en la {regionSel}.</p>
+              <p className="text-xs text-slate-400">Puedes ingresar nuevos registros públicos desde el Panel de Gobernanza.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {puntosPublicos.map((item) => {
+                let mapUrl = '';
+                if (item.lat && item.lng) {
+                  mapUrl = `https://www.google.com/maps?q=${item.lat},${item.lng}`;
+                } else {
+                  const busqueda = [item.nombre, item.direccion, item.comuna, `${regionSel}, Chile`]
+                    .filter(Boolean)
+                    .join(', ');
+                  mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(busqueda)}`;
+                }
 
-              return (
-                <article key={item.id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between hover:shadow-md transition-shadow">
-                  <div>
-                    <div className="flex justify-between items-start mb-1">
-                      <h2 className="text-lg font-bold text-slate-900 leading-tight">{item.nombre}</h2>
-                      <span className="text-[11px] bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded-md border border-slate-200 shrink-0 ml-2">
-                        {item.categoria}
-                      </span>
+                return (
+                  <article key={item.id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                      <div className="flex justify-between items-start mb-1">
+                        <h2 className="text-lg font-bold text-slate-900 leading-tight">{item.nombre}</h2>
+                        <span className="text-[11px] bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded-md border border-slate-200 shrink-0 ml-2">
+                          {item.categoria}
+                        </span>
+                      </div>
+
+                      <div className="text-xs font-medium text-slate-500 mb-3 space-y-0.5">
+                        <p className="font-semibold text-slate-700">📍 {item.comuna} · <span className="text-slate-400">Provincia de {item.provincia}</span></p>
+                        {item.direccion && (
+                          <p className="text-slate-500 italic">🏛️ {item.direccion}</p>
+                        )}
+                      </div>
+
+                      <p className="text-slate-600 text-sm mb-4 leading-relaxed">{item.descripcion}</p>
                     </div>
 
-                    <div className="text-xs font-medium text-slate-500 mb-3 space-y-0.5">
-                      <p className="font-semibold text-slate-700">📍 {item.comuna} · <span className="text-slate-400">Provincia de {item.provincia}</span></p>
-                      {item.direccion && (
-                        <p className="text-slate-500 italic">🏛️ {item.direccion}</p>
+                    <div className="pt-3 border-t border-slate-100 flex flex-wrap gap-2 text-xs font-semibold">
+                      <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="bg-emerald-50 text-emerald-800 px-3 py-1.5 rounded-lg border border-emerald-200 hover:bg-emerald-100">
+                        🗺️ Ver Mapa / Georreferencia
+                      </a>
+                      {item.web && (
+                        <a href={item.web} target="_blank" rel="noopener noreferrer" className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-200">
+                          🌐 Ficha Oficial
+                        </a>
                       )}
                     </div>
-
-                    <p className="text-slate-600 text-sm mb-4 leading-relaxed">{item.descripcion}</p>
-                  </div>
-
-                  <div className="pt-3 border-t border-slate-100 flex flex-wrap gap-2 text-xs font-semibold">
-                    <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="bg-emerald-50 text-emerald-800 px-3 py-1.5 rounded-lg border border-emerald-200 hover:bg-emerald-100">
-                      🗺️ Ver Mapa / Georreferencia
-                    </a>
-                    {item.web && (
-                      <a href={item.web} target="_blank" rel="noopener noreferrer" className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-200">
-                        🌐 Ficha Oficial
-                      </a>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+                  </article>
+                );
+              })}
+            </div>
+          )}
         </main>
       )}
 
@@ -469,7 +483,7 @@ export default function App() {
                   <input
                     type="checkbox"
                     checked={nuevoPunto.aprobado}
-                    onChange={(e) => setNuevoPunto({ ...nuevoPunto, aprobado: e.target.checked })}
+                    onChange={(e) => setNuevoPunto({ ...nuevoPunnato?.aprobado ?? e.target.checked })}
                     className="w-4 h-4 text-blue-600 rounded"
                   />
                   <span>Visto Bueno Institucional (Publicar directamente)</span>

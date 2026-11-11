@@ -28,13 +28,16 @@ const REGIONES_CHILE = {
   }
 };
 
-// Categorías oficiales actualizadas incluyendo Humedales y Áreas Protegidas
+// Categorías oficiales ampliadas incluyendo los nuevos componentes geográficos y científicos
 const CATEGORIAS_PATRIMONIALES = [
   'Todas',
   'Monumentos Históricos',
   'Plazas y Espacios Públicos',
   'Parques y reservas',
   'Humedales y Ecosistemas',
+  'Ríos y Quebradas',
+  'Cerros y Cumbres',
+  'Astronomía y Ciencia',
   'Infraestructura Hídrica',
   'Playas y Borde Costero'
 ];
@@ -53,7 +56,7 @@ export default function App() {
   const [comunaSel, setComunaSel] = useState('Todas');
   const [categoriaSel, setCategoriaSel] = useState('Todas');
 
-  // Estado del Formulario de Ingreso Manual (sin campo de imagen)
+  // Estado del Formulario de Ingreso Manual
   const [nuevoPunto, setNuevoPunto] = useState({
     nombre: '',
     direccion: '',
@@ -61,11 +64,7 @@ export default function App() {
     comuna: 'La Serena',
     categoria: 'Monumentos Históricos',
     descripcion: '',
-    telefono: '',
-    whatsapp: '',
-    email: '',
     web: '',
-    reservaUrl: '',
     lat: '',
     lng: '',
     aprobado: true
@@ -124,11 +123,7 @@ export default function App() {
       comuna: 'La Serena',
       categoria: 'Monumentos Históricos',
       descripcion: '',
-      telefono: '',
-      whatsapp: '',
-      email: '',
       web: '',
-      reservaUrl: '',
       lat: '',
       lng: '',
       aprobado: true
@@ -202,7 +197,7 @@ export default function App() {
             </div>
 
             <p className="text-blue-200 text-sm font-medium max-w-2xl">
-              Portal institucional de bienes públicos, monumentos históricos, parques, humedales y grandes obras de infraestructura.
+              Portal institucional de bienes públicos, monumentos históricos, parques, humedales, ríos, cumbres y astronomía.
             </p>
           </div>
 
@@ -295,6 +290,7 @@ export default function App() {
               </div>
             </div>
 
+            {/* 3. FILTRAR POR CATEGORÍA PATRIMONIAL / OBRA PÚBLICA (Botones más angostos, más altos y texto en dos líneas) */}
             <div className="border-t pt-3 border-slate-100">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
                 3. Filtrar por Categoría Patrimonial / Obra Pública:
@@ -304,20 +300,21 @@ export default function App() {
                   <button
                     key={cat}
                     onClick={() => setCategoriaSel(cat)}
-                    className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    className={`w-36 h-12 px-2 py-1 rounded-lg text-xs font-semibold text-center flex flex-col items-center justify-center leading-tight transition-all ${
                       categoriaSel === cat
-                        ? 'bg-blue-800 text-white shadow-sm'
+                        ? 'bg-blue-800 text-white shadow-sm font-bold'
                         : 'bg-blue-50 text-blue-900 hover:bg-blue-100 border border-blue-200'
                     }`}
                   >
-                    {cat === 'Todas' ? '🏛️ Todos los hitos' : cat}
+                    <span>{cat === 'Todas' ? '🏛️ Todos' : cat.split(' ')[0]}</span>
+                    <span className="truncate w-full">{cat === 'Todas' ? 'los hitos' : cat.split(' ').slice(1).join(' ') || cat}</span>
                   </button>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* Grid de Hitos (Sin imágenes, enfocado en datos duros y enlaces) */}
+          {/* Grid de Hitos */}
           {puntosPublicos.length === 0 ? (
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center text-slate-500">
               <p className="text-lg font-semibold mb-1">No hay hitos catastrados para esta selección en la {regionSel}.</p>
@@ -380,7 +377,7 @@ export default function App() {
           <section className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
             <h2 className="text-xl font-bold text-slate-900 mb-1">📝 Ingreso de Hito Patrimonial / Obra Pública</h2>
             <p className="text-xs text-slate-500 mb-6">
-              Catastra monumentos, iglesias, parques, humedales, plazas y obras de infraestructura regional.
+              Catastra monumentos, iglesias, parques, humedales, ríos, cumbres y astronomía.
             </p>
 
             <form onSubmit={handleGuardarNuevo} className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-semibold text-slate-700">
@@ -389,7 +386,7 @@ export default function App() {
                 <input
                   type="text"
                   required
-                  placeholder="Ej: Humedal Río Elqui"
+                  placeholder="Ej: Observatorio Cerro Tololo"
                   value={nuevoPunto.nombre}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, nombre: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
@@ -413,7 +410,7 @@ export default function App() {
                 <label className="block mb-1">Ubicación / Dirección / Referencia Geográfica</label>
                 <input
                   type="text"
-                  placeholder="Ej: Desembocadura costera"
+                  placeholder="Ej: Valle de Elqui, Ruta 41"
                   value={nuevoPunto.direccion}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, direccion: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
@@ -466,7 +463,7 @@ export default function App() {
                 <textarea
                   rows="2"
                   required
-                  placeholder="Describe la relevancia histórica, ecológica o técnica de la obra/monumento..."
+                  placeholder="Describe la relevancia histórica, científica o técnica de la obra..."
                   value={nuevoPunto.descripcion}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, descripcion: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"

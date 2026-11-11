@@ -60,6 +60,7 @@ export default function App() {
     comuna: 'La Serena',
     categoria: 'Monumentos Históricos',
     descripcion: '',
+    imagen: '',
     telefono: '',
     whatsapp: '',
     email: '',
@@ -123,6 +124,7 @@ export default function App() {
       comuna: 'La Serena',
       categoria: 'Monumentos Históricos',
       descripcion: '',
+      imagen: '',
       telefono: '',
       whatsapp: '',
       email: '',
@@ -150,7 +152,6 @@ export default function App() {
   const puntosPublicos = puntos.filter((item) => {
     const esAprobado = item.aprobado === true;
     
-    // Validar que la comuna del hito pertenezca a la región seleccionada actualmente
     const comunaPerteneceARegion = Object.values(estructuraProvincias).some((comunasArray) =>
       comunasArray.includes(item.comuna)
     );
@@ -168,7 +169,6 @@ export default function App() {
       <div className="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 rounded-2xl shadow-md p-6 mb-6 text-white border border-blue-900">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           
-          {/* Lado Izquierdo: Títulos y Selector Regional Enorme */}
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 bg-blue-900/80 border border-blue-700/60 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-200 uppercase">
               <span>🇨🇱 Sistema Territorial de Chile</span>
@@ -203,11 +203,10 @@ export default function App() {
             </div>
 
             <p className="text-blue-200 text-sm font-medium max-w-2xl">
-              Portal institucional de bienes públicos, monumentos históricos, parques y grandes obras de infraestructura.
+              Portal institucional de bienes públicos, monumentos históricos, parques, humedales y grandes obras de infraestructura.
             </p>
           </div>
 
-          {/* Lado Derecho: Botones de Navegación / Vistas */}
           <div className="flex bg-blue-900/60 p-1.5 rounded-xl border border-blue-800/80 text-xs font-bold shrink-0">
             <button
               onClick={() => setVista('publico')}
@@ -235,7 +234,6 @@ export default function App() {
         <main>
           {/* Panel de Filtros Tripartito */}
           <section className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 space-y-4">
-            {/* 1. Provincia */}
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
                 1. Seleccionar Provincia ({regionSel}):
@@ -267,7 +265,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* 2. Comunas */}
             <div className="border-t pt-3 border-slate-100">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
                 2. Filtrar por Comuna {provinciaSel !== 'Todas' && `(${provinciaSel})`}:
@@ -299,7 +296,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* 3. Categorías Patrimoniales */}
             <div className="border-t pt-3 border-slate-100">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
                 3. Filtrar por Categoría Patrimonial / Obra Pública:
@@ -344,6 +340,12 @@ export default function App() {
                 return (
                   <article key={item.id} className="bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between hover:shadow-md transition-shadow">
                     <div>
+                      {item.imagen && (
+                        <div className="mb-4 overflow-hidden rounded-lg h-48 bg-slate-100 border border-slate-200">
+                          <img src={item.imagen} alt={item.nombre} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                        </div>
+                      )}
+
                       <div className="flex justify-between items-start mb-1">
                         <h2 className="text-lg font-bold text-slate-900 leading-tight">{item.nombre}</h2>
                         <span className="text-[11px] bg-slate-100 text-slate-800 font-bold px-2.5 py-1 rounded-md border border-slate-200 shrink-0 ml-2">
@@ -385,7 +387,7 @@ export default function App() {
           <section className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
             <h2 className="text-xl font-bold text-slate-900 mb-1">📝 Ingreso de Hito Patrimonial / Obra Pública</h2>
             <p className="text-xs text-slate-500 mb-6">
-              Catastra monumentos, iglesias, parques, plazas de armas y obras de infraestructura regional.
+              Catastra monumentos, iglesias, parques, humedales, plazas y obras de infraestructura regional.
             </p>
 
             <form onSubmit={handleGuardarNuevo} className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-semibold text-slate-700">
@@ -394,7 +396,7 @@ export default function App() {
                 <input
                   type="text"
                   required
-                  placeholder="Ej: Plaza de Armas de La Serena"
+                  placeholder="Ej: Humedal Río Elqui"
                   value={nuevoPunto.nombre}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, nombre: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
@@ -414,13 +416,24 @@ export default function App() {
                 </select>
               </div>
 
-              <div className="md:col-span-3">
+              <div className="md:col-span-2">
                 <label className="block mb-1">Ubicación / Dirección / Referencia Geográfica</label>
                 <input
                   type="text"
-                  placeholder="Ej: Calle Prat esquina Los Carrera"
+                  placeholder="Ej: Desembocadura costera"
                   value={nuevoPunto.direccion}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, direccion: e.target.value })}
+                  className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block mb-1">URL de Fotografía (Opcional)</label>
+                <input
+                  type="url"
+                  placeholder="https://images.unsplash.com/..."
+                  value={nuevoPunto.imagen}
+                  onChange={(e) => setNuevoPunto({ ...nuevoPunto, imagen: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
                 />
               </div>
@@ -471,7 +484,7 @@ export default function App() {
                 <textarea
                   rows="2"
                   required
-                  placeholder="Describe la relevancia histórica, arquitectónica o técnica de la obra/monumento..."
+                  placeholder="Describe la relevancia histórica, ecológica o técnica de la obra/monumento..."
                   value={nuevoPunto.descripcion}
                   onChange={(e) => setNuevoPunto({ ...nuevoPunto, descripcion: e.target.value })}
                   className="w-full p-2.5 border rounded-lg bg-slate-50 border-slate-300 outline-none"
@@ -483,7 +496,7 @@ export default function App() {
                   <input
                     type="checkbox"
                     checked={nuevoPunto.aprobado}
-                    onChange={(e) => setNuevoPunto({ ...nuevoPunnato?.aprobado ?? e.target.checked })}
+                    onChange={(e) => setNuevoPunto({ ...nuevoPunto, aprobado: e.target.checked })}
                     className="w-4 h-4 text-blue-600 rounded"
                   />
                   <span>Visto Bueno Institucional (Publicar directamente)</span>

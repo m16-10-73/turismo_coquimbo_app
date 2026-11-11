@@ -10,6 +10,7 @@
     "lat": -29.9056,
     "lng": -71.2523,
     "web": "https://monumentos.gob.cl/",
+    "imagen": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&q=80",
     "aprobado": true
   },
   {
@@ -23,6 +24,7 @@
     "lat": -29.9027,
     "lng": -71.2523,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
@@ -36,19 +38,21 @@
     "lat": -29.8900,
     "lng": -71.2400,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1584467735811-028a6adc64d5?w=800&q=80",
     "aprobado": true
   },
   {
     "id": 104,
-    "nombre": "Plaza de Abastos / Recova",
+    "nombre": "La Recova (Mercado Artesanal)",
     "provincia": "Elqui",
     "comuna": "La Serena",
     "categoria": "Monumentos Históricos",
     "direccion": "Cienfuegos con Cantournet",
-    "descripcion": "Tradicional mercado artesanal y gastronómico de arquitectura típica serenense.",
+    "descripcion": "Tradicional mercado de artesanías en piedra combarbalita y productos típicos de la zona.",
     "lat": -29.9040,
     "lng": -71.2500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80",
     "aprobado": true
   },
   {
@@ -62,6 +66,7 @@
     "lat": -29.9150,
     "lng": -71.2400,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=800&q=80",
     "aprobado": true
   },
   {
@@ -75,6 +80,7 @@
     "lat": -29.9080,
     "lng": -71.2510,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1548625361-160a0f5a7c50?w=800&q=80",
     "aprobado": true
   },
   {
@@ -88,6 +94,7 @@
     "lat": -29.9010,
     "lng": -71.2480,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80",
     "aprobado": true
   },
   {
@@ -101,10 +108,25 @@
     "lat": -29.9200,
     "lng": -71.2600,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
     "aprobado": true
   },
   {
     "id": 109,
+    "nombre": "Humedal Río Elqui",
+    "provincia": "Elqui",
+    "comuna": "La Serena",
+    "categoria": "Humedales y Ecosistemas",
+    "direccion": "Desembocadura Río Elqui",
+    "descripcion": "Importante ecosistema de conservación ambiental ubicado en la desembocadura fluvial.",
+    "lat": -29.8950,
+    "lng": -71.2580,
+    "web": "",
+    "imagen": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80",
+    "aprobado": true
+  },
+  {
+    "id": 110,
     "nombre": "Playa El Pescador",
     "provincia": "Elqui",
     "comuna": "La Serena",
@@ -114,10 +136,11 @@
     "lat": -29.8800,
     "lng": -71.2500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 110,
+    "id": 111,
     "nombre": "Parque Universitario Andrés Bello",
     "provincia": "Elqui",
     "comuna": "La Serena",
@@ -127,10 +150,11 @@
     "lat": -29.9100,
     "lng": -71.2700,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 111,
+    "id": 112,
     "nombre": "Plaza Los Pimientos",
     "provincia": "Elqui",
     "comuna": "La Serena",
@@ -140,10 +164,11 @@
     "lat": -29.9120,
     "lng": -71.2650,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 112,
+    "id": 113,
     "nombre": "Plaza 18 de Septiembre",
     "provincia": "Elqui",
     "comuna": "La Serena",
@@ -153,10 +178,11 @@
     "lat": -29.9000,
     "lng": -71.2350,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 113,
+    "id": 114,
     "nombre": "Playa Mansa de Peñuelas",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -166,10 +192,11 @@
     "lat": -29.9600,
     "lng": -71.3300,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 114,
+    "id": 115,
     "nombre": "Cruz del Tercer Milenio",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -179,10 +206,11 @@
     "lat": -29.9533,
     "lng": -71.3436,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 115,
+    "id": 116,
     "nombre": "Playa Totoralillo",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -192,10 +220,11 @@
     "lat": -30.0833,
     "lng": -71.3667,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 116,
+    "id": 117,
     "nombre": "Fuerte Lambert",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -205,10 +234,11 @@
     "lat": -29.9650,
     "lng": -71.3500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 117,
+    "id": 118,
     "nombre": "Plaza de Armas de Coquimbo",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -218,10 +248,11 @@
     "lat": -29.9540,
     "lng": -71.3400,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 118,
+    "id": 119,
     "nombre": "Mezquita de Coquimbo (Centro Mohammed VI)",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -231,10 +262,11 @@
     "lat": -29.9500,
     "lng": -71.3300,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 119,
+    "id": 120,
     "nombre": "Playa La Herradura",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -244,10 +276,11 @@
     "lat": -29.9750,
     "lng": -71.3500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 120,
+    "id": 121,
     "nombre": "Playa Guanaqueros",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -257,10 +290,11 @@
     "lat": -30.0700,
     "lng": -71.4200,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 121,
+    "id": 122,
     "nombre": "Parque Urbano Culebrón",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -270,10 +304,25 @@
     "lat": -29.9600,
     "lng": -71.3550,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 122,
+    "id": 123,
+    "nombre": "Humedal El Culebrón",
+    "provincia": "Elqui",
+    "comuna": "Coquimbo",
+    "categoria": "Humedales y Ecosistemas",
+    "direccion": "Sector Costanera, Coquimbo",
+    "descripcion": "Santuario de la naturaleza protegido en pleno tejido urbano portuario.",
+    "lat": -29.9610,
+    "lng": -71.3560,
+    "web": "",
+    "imagen": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80",
+    "aprobado": true
+  },
+  {
+    "id": 124,
     "nombre": "Plaza Vicuña Mackenna",
     "provincia": "Elqui",
     "comuna": "Coquimbo",
@@ -283,10 +332,39 @@
     "lat": -29.9530,
     "lng": -71.3420,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 123,
+    "id": 125,
+    "nombre": "Playa Grande de Tongoy",
+    "provincia": "Elqui",
+    "comuna": "Coquimbo",
+    "categoria": "Playas y Borde Costero",
+    "direccion": "Bahía de Tongoy",
+    "descripcion": "Extenso borde costero de alta vocación turística y gastronómica.",
+    "lat": -30.2500,
+    "lng": -71.5000,
+    "web": "",
+    "imagen": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
+    "aprobado": true
+  },
+  {
+    "id": 126,
+    "nombre": "Humedal Estero Tongoy",
+    "provincia": "Elqui",
+    "comuna": "Coquimbo",
+    "categoria": "Humedales y Ecosistemas",
+    "direccion": "Bahía de Tongoy",
+    "descripcion": "Zona húmeda protegida de alto valor ecológico para el refugio de aves acuáticas.",
+    "lat": -30.2450,
+    "lng": -71.4900,
+    "web": "",
+    "imagen": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&q=80",
+    "aprobado": true
+  },
+  {
+    "id": 127,
     "nombre": "Plaza de Armas de Vicuña",
     "provincia": "Elqui",
     "comuna": "Vicuña",
@@ -296,10 +374,11 @@
     "lat": -30.0278,
     "lng": -70.7081,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 124,
+    "id": 128,
     "nombre": "Torre Bauer",
     "provincia": "Elqui",
     "comuna": "Vicuña",
@@ -309,10 +388,11 @@
     "lat": -30.0280,
     "lng": -70.7085,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 125,
+    "id": 129,
     "nombre": "Museo Gabriela Mistral",
     "provincia": "Elqui",
     "comuna": "Vicuña",
@@ -322,10 +402,11 @@
     "lat": -30.0260,
     "lng": -70.7050,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 126,
+    "id": 130,
     "nombre": "Embalse Puclaro",
     "provincia": "Elqui",
     "comuna": "Paihuano",
@@ -335,23 +416,25 @@
     "lat": -29.9167,
     "lng": -70.8833,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 127,
+    "id": 131,
     "nombre": "Plaza de Paihuano",
     "provincia": "Elqui",
     "comuna": "Paihuano",
     "categoria": "Plazas y Espacios Públicos",
     "direccion": "Centro Cívico de Paihuano",
-    "descripcion": "Plaza típica elquina caracterizada por su tranquilidad y arquitectura tradicional en tierra de leyendas.",
+    "descripcion": "Plaza típica elquina caracterizada por su tranquilidad y arquitectura tradicional.",
     "lat": -30.0160,
     "lng": -70.5160,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 128,
+    "id": 132,
     "nombre": "Iglesia de Montegrande",
     "provincia": "Elqui",
     "comuna": "Paihuano",
@@ -361,10 +444,11 @@
     "lat": -30.0330,
     "lng": -70.5500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1548625361-160a0f5a7c50?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 129,
+    "id": 133,
     "nombre": "Iglesia de Andacollo (Basílica)",
     "provincia": "Elqui",
     "comuna": "Andacollo",
@@ -374,62 +458,67 @@
     "lat": -30.2281,
     "lng": -71.0847,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1548625361-160a0f5a7c50?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 130,
+    "id": 134,
     "nombre": "Plaza de Andacollo",
     "provincia": "Elqui",
     "comuna": "Andacollo",
     "categoria": "Plazas y Espacios Públicos",
     "direccion": "Frente al Santuario",
-    "descripcion": "Explanada de congregación masiva para las festividades religiosas de la Virgen de Andacollo.",
+    "descripcion": "Explanada de congregación masiva para festividades religiosas.",
     "lat": -30.2285,
     "lng": -71.0850,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 131,
+    "id": 135,
     "nombre": "Caleta Hornos",
     "provincia": "Elqui",
     "comuna": "La Higuera",
     "categoria": "Playas y Borde Costero",
     "direccion": "Borde costero norte de La Higuera",
-    "descripcion": "Caleta de pescadores artesanales y playa de arenas blancas en el litoral norte de Elqui.",
+    "descripcion": "Caleta de pescadores artesanales y playa de arenas blancas.",
     "lat": -29.7000,
     "lng": -71.2333,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 132,
+    "id": 136,
     "nombre": "Punta de Choros",
     "provincia": "Elqui",
     "comuna": "La Higuera",
     "categoria": "Playas y Borde Costero",
-    "direccion": "Litoral norte de la comuna de La Higuera",
-    "descripcion": "Borde costero de biodiversidad marina excepcional, acceso a la Reserva Nacional Pingüino de Humboldt.",
+    "direccion": "Litoral norte de la comuna",
+    "descripcion": "Borde costero de biodiversidad marina excepcional, acceso a reservas.",
     "lat": -29.2500,
     "lng": -71.4667,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 133,
+    "id": 137,
     "nombre": "Reserva Nacional Pingüino de Humboldt",
     "provincia": "Elqui",
     "comuna": "La Higuera",
     "categoria": "Parques y reservas",
     "direccion": "Islas Choros y Damas",
-    "descripcion": "Área silvestre protegida de fauna marina, delfines mulares y aves guaneras.",
+    "descripcion": "Área silvestre protegida de fauna marina y aves guaneras.",
     "lat": -29.2333,
     "lng": -71.5167,
     "web": "https://www.conaf.cl/",
+    "imagen": "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 134,
+    "id": 138,
     "nombre": "Plaza de Armas de Ovalle",
     "provincia": "Limarí",
     "comuna": "Ovalle",
@@ -439,10 +528,11 @@
     "lat": -30.6014,
     "lng": -71.2003,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 135,
+    "id": 139,
     "nombre": "Parque Nacional Fray Jorge",
     "provincia": "Limarí",
     "comuna": "Ovalle",
@@ -452,23 +542,25 @@
     "lat": -30.6667,
     "lng": -71.6667,
     "web": "https://www.conaf.cl/",
+    "imagen": "https://images.unsplash.com/photo-1448375240586-882707db888b?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 136,
+    "id": 140,
     "nombre": "Embalse Recoleta",
     "provincia": "Limarí",
     "comuna": "Ovalle",
     "categoria": "Infraestructura Hídrica",
     "direccion": "Este de Ovalle",
-    "descripcion": "Infraestructura crítica para el almacenamiento de recursos hídricos en la cuenca del Limarí.",
+    "descripcion": "Infraestructura crítica para el almacenamiento hídrico en la cuenca del Limarí.",
     "lat": -30.5800,
     "lng": -71.0500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 137,
+    "id": 141,
     "nombre": "Embalse Cogotí",
     "provincia": "Limarí",
     "comuna": "Combarbalá",
@@ -478,10 +570,11 @@
     "lat": -30.9500,
     "lng": -71.1000,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 138,
+    "id": 142,
     "nombre": "Iglesia de Combarbalá",
     "provincia": "Limarí",
     "comuna": "Combarbalá",
@@ -491,10 +584,11 @@
     "lat": -31.7333,
     "lng": -71.0000,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1548625361-160a0f5a7c50?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 139,
+    "id": 143,
     "nombre": "Plaza de Combarbalá",
     "provincia": "Limarí",
     "comuna": "Combarbalá",
@@ -504,36 +598,39 @@
     "lat": -31.7340,
     "lng": -71.0010,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 140,
+    "id": 144,
     "nombre": "Embalse Paloma",
     "provincia": "Limarí",
     "comuna": "Monte Patria",
     "categoria": "Infraestructura Hídrica",
     "direccion": "Confluencia ríos Huatulame y Grande",
-    "descripcion": "El embalse de riego más grande de Chile y obra maestra de la ingeniería hidráulica nacional.",
+    "descripcion": "El embalse de riego más grande de Chile y obra maestra de la ingeniería hidráulica.",
     "lat": -30.7333,
     "lng": -71.1167,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 141,
+    "id": 145,
     "nombre": "Plaza de Monte Patria",
     "provincia": "Limarí",
     "comuna": "Monte Patria",
     "categoria": "Plazas y Espacios Públicos",
     "direccion": "Centro Cívico de Monte Patria",
-    "descripcion": "Espacio público de los valles generosos, rodeado de historia y producción agrícola.",
+    "descripcion": "Espacio público de los valles generosos, rodeado de historia y producción.",
     "lat": -30.6900,
     "lng": -70.9500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 142,
+    "id": 146,
     "nombre": "Plaza de Punitaqui",
     "provincia": "Limarí",
     "comuna": "Punitaqui",
@@ -543,10 +640,11 @@
     "lat": -30.8500,
     "lng": -71.2500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 143,
+    "id": 147,
     "nombre": "Plaza de Río Hurtado",
     "provincia": "Limarí",
     "comuna": "Río Hurtado",
@@ -556,10 +654,11 @@
     "lat": -30.2500,
     "lng": -70.7500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 144,
+    "id": 148,
     "nombre": "Plaza de Armas de Illapel",
     "provincia": "Choapa",
     "comuna": "Illapel",
@@ -569,23 +668,25 @@
     "lat": -31.6300,
     "lng": -71.1600,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 145,
+    "id": 149,
     "nombre": "Parque Nacional Las Chinchillas",
     "provincia": "Choapa",
     "comuna": "Illapel",
     "categoria": "Parques y reservas",
     "direccion": "Quesería, interior de Illapel",
-    "descripcion": "Única reserva natural del mundo para la protección de la chinchilla silvestre chilena.",
+    "descripcion": "Única reserva natural del mundo para la protección de la chinchilla silvestre.",
     "lat": -31.5167,
     "lng": -71.1000,
     "web": "https://www.conaf.cl/",
+    "imagen": "https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 146,
+    "id": 150,
     "nombre": "Playa Los Vilos",
     "provincia": "Choapa",
     "comuna": "Los Vilos",
@@ -595,10 +696,11 @@
     "lat": -31.9167,
     "lng": -71.5167,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 147,
+    "id": 151,
     "nombre": "Plaza de Los Vilos",
     "provincia": "Choapa",
     "comuna": "Los Vilos",
@@ -608,10 +710,11 @@
     "lat": -31.9150,
     "lng": -71.5150,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 148,
+    "id": 152,
     "nombre": "Plaza de Armas de Salamanca",
     "provincia": "Choapa",
     "comuna": "Salamanca",
@@ -621,10 +724,11 @@
     "lat": -31.7833,
     "lng": -70.9667,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
-    "id": 149,
+    "id": 153,
     "nombre": "Plaza de Canela",
     "provincia": "Choapa",
     "comuna": "Canela",
@@ -634,6 +738,7 @@
     "lat": -31.4000,
     "lng": -71.4500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
@@ -647,6 +752,7 @@
     "lat": -27.3665,
     "lng": -70.3314,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
@@ -660,6 +766,7 @@
     "lat": -27.0683,
     "lng": -70.8242,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
     "aprobado": true
   },
   {
@@ -673,6 +780,7 @@
     "lat": -27.1089,
     "lng": -70.8447,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
     "aprobado": true
   },
   {
@@ -686,6 +794,7 @@
     "lat": -28.0167,
     "lng": -69.8500,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&q=80",
     "aprobado": true
   },
   {
@@ -699,6 +808,7 @@
     "lat": -26.1333,
     "lng": -70.6500,
     "web": "https://www.conaf.cl/",
+    "imagen": "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?w=800&q=80",
     "aprobado": true
   },
   {
@@ -712,6 +822,7 @@
     "lat": -28.5708,
     "lng": -70.7581,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
@@ -725,6 +836,7 @@
     "lat": -23.6667,
     "lng": -70.4000,
     "web": "https://monumentos.gob.cl/",
+    "imagen": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
     "aprobado": true
   },
   {
@@ -738,6 +850,7 @@
     "lat": -23.6500,
     "lng": -70.3983,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   },
   {
@@ -751,6 +864,7 @@
     "lat": -23.6550,
     "lng": -70.3950,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
     "aprobado": true
   },
   {
@@ -764,6 +878,7 @@
     "lat": -22.9167,
     "lng": -68.2000,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1548625361-160a0f5a7c50?w=800&q=80",
     "aprobado": true
   },
   {
@@ -777,6 +892,7 @@
     "lat": -23.3500,
     "lng": -68.3000,
     "web": "https://www.conaf.cl/",
+    "imagen": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80",
     "aprobado": true
   },
   {
@@ -790,6 +906,7 @@
     "lat": -22.0920,
     "lng": -70.1978,
     "web": "",
+    "imagen": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
     "aprobado": true
   }
 ]

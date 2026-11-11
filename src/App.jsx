@@ -142,8 +142,8 @@ export default function App() {
     ? Object.values(estructuraProvincias).flat()
     : estructuraProvincias[provinciaSel] || [];
 
-  // Filtrado vista pública
-  const puntosPublicos = puntos.filter((item) => {
+  // Filtrado base territorial (Región, Provincia, Comuna) para calcular contadores dinámicos por botón
+  const puntosBaseTerritorial = puntos.filter((item) => {
     const esAprobado = item.aprobado === true;
     
     const comunaPerteneceARegion = Object.values(estructuraProvincias).some((comunasArray) =>
@@ -152,9 +152,13 @@ export default function App() {
 
     const coincideProvincia = provinciaSel === 'Todas' || item.provincia === provinciaSel;
     const coincideComuna = comunaSel === 'Todas' || item.comuna === comunaSel;
-    const coincideCategoria = categoriaSel === 'Todas' || item.categoria === categoriaSel;
 
-    return esAprobado && comunaPerteneceARegion && coincideProvincia && coincideComuna && coincideCategoria;
+    return esAprobado && comunaPerteneceARegion && coincideProvincia && coincideComuna;
+  });
+
+  // Filtrado final vista pública con categoría
+  const puntosPublicos = puntosBaseTerritorial.filter((item) => {
+    return categoriaSel === 'Todas' || item.categoria === categoriaSel;
   });
 
   return (
@@ -290,26 +294,39 @@ export default function App() {
               </div>
             </div>
 
-            {/* 3. FILTRAR POR CATEGORÍA PATRIMONIAL / OBRA PÚBLICA (Botones más angostos, más altos y texto en dos líneas) */}
+            {/* 3. FILTRAR POR CATEGORÍA PATRIMONIAL / OBRA PÚBLICA (Con contador dinámico integrado) */}
             <div className="border-t pt-3 border-slate-100">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
                 3. Filtrar por Categoría Patrimonial / Obra Pública:
               </span>
               <div className="flex flex-wrap gap-2">
-                {CATEGORIAS_PATRIMONIALES.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setCategoriaSel(cat)}
-                    className={`w-36 h-12 px-2 py-1 rounded-lg text-xs font-semibold text-center flex flex-col items-center justify-center leading-tight transition-all ${
-                      categoriaSel === cat
-                        ? 'bg-blue-800 text-white shadow-sm font-bold'
-                        : 'bg-blue-50 text-blue-900 hover:bg-blue-100 border border-blue-200'
-                    }`}
-                  >
-                    <span>{cat === 'Todas' ? '🏛️ Todos' : cat.split(' ')[0]}</span>
-                    <span className="truncate w-full">{cat === 'Todas' ? 'los hitos' : cat.split(' ').slice(1).join(' ') || cat}</span>
-                  </button>
-                ))}
+                {CATEGORIAS_PATRIMONIALES.map((cat) => {
+                  const count = cat === 'Todas'
+                    ? puntosBaseTerritorial.length
+                    : puntosBaseTerritorial.filter((item) => item.categoria === cat).length;
+
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setCategoriaSel(cat)}
+                      className={`w-36 h-12 px-2 py-1 rounded-lg text-xs font-semibold text-center flex flex-col items-center justify-center leading-tight transition-all ${
+                        categoriaSel === cat
+                          ? 'bg-blue-800 text-white shadow-sm font-bold ring-2 ring-amber-400'
+                          : 'bg-blue-50 text-blue-900 hover:bg-blue-100 border border-blue-200'
+                      }`}
+                    >
+                      <div className="flex items-center gap-1">
+                        <span className="truncate">{cat === 'Todas' ? '🏛️ Todos' : cat.split(' ')[0]}</span>
+                        <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-black ${
+                          categoriaSel === cat ? 'bg-amber-400 text-slate-950' : 'bg-blue-200 text-blue-950'
+                        }`}>
+                          {count}
+                        </span>
+                      </div>
+                      <span className="truncate w-full text-[10px] opacity-90">{cat === 'Todas' ? 'los hitos' : cat.split(' ').slice(1).join(' ') || cat}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </section>

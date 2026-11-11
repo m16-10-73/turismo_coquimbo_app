@@ -157,64 +157,71 @@ export default function App() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6 font-sans bg-slate-50 min-h-screen">
-      {/* Encabezado Institucional con Emblema Regional */}
-      <header className="mb-6 border-b pb-4 border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <div className="flex flex-wrap items-center gap-2 mb-1.5">
-            <span className="bg-blue-900 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">
-              Chile · Sistema Territorial
-            </span>
-            
-            {/* EMBLEMA E INSIGNIA REGIONAL OFICIAL */}
-            <div className="flex items-center bg-amber-500 text-slate-950 px-2.5 py-0.5 rounded-lg font-black text-xs uppercase tracking-wide shadow-sm border border-amber-600">
-              <span className="bg-slate-950 text-amber-400 font-extrabold text-[10px] px-1.5 py-0.2 rounded mr-2 tracking-tighter">
-                {regionData.codigo} R
-              </span>
-              <select
-                value={regionSel}
-                onChange={(e) => {
-                  setRegionSel(e.target.value);
-                  setProvinciaSel('Todas');
-                  setComunaSel('Todas');
-                }}
-                className="bg-transparent font-black outline-none cursor-pointer text-slate-950"
-              >
-                {Object.keys(REGIONES_CHILE).map((reg) => (
-                  <option key={reg} value={reg} className="bg-white font-semibold text-slate-900">
-                    {reg}
-                  </option>
-                ))}
-              </select>
+      {/* BANNER INSTITUCIONAL DE ALTO IMPACTO (REGIÓN DESTACADA) */}
+      <div className="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 rounded-2xl shadow-md p-6 mb-6 text-white border border-blue-900">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+          
+          {/* Lado Izquierdo: Títulos y Selector Regional Enorme */}
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 bg-blue-900/80 border border-blue-700/60 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-200 uppercase">
+              <span>🇨🇱 Sistema Territorial de Chile</span>
             </div>
+
+            {/* SELECTOR DE REGIÓN PROTAGONISTA */}
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="bg-amber-400 text-slate-950 font-black text-sm px-3 py-1 rounded-lg shadow-sm">
+                [{regionData.codigo}ª REGIÓN]
+              </span>
+              
+              <div className="relative inline-block">
+                <select
+                  value={regionSel}
+                  onChange={(e) => {
+                    setRegionSel(e.target.value);
+                    setProvinciaSel('Todas');
+                    setComunaSel('Todas');
+                  }}
+                  className="appearance-none bg-white/10 hover:bg-white/15 text-white font-extrabold text-2xl md:text-3xl px-4 py-1.5 pr-10 rounded-xl border border-white/20 outline-none cursor-pointer transition-all shadow-inner"
+                >
+                  {Object.keys(REGIONES_CHILE).map((reg) => (
+                    <option key={reg} value={reg} className="bg-slate-900 font-bold text-white">
+                      {reg}
+                    </option>
+                  ))}
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-amber-400 font-bold">
+                  ▼
+                </div>
+              </div>
+            </div>
+
+            <p className="text-blue-200 text-sm font-medium max-w-2xl">
+              Portal institucional de bienes públicos, monumentos históricos, parques y grandes obras de infraestructura.
+            </p>
           </div>
 
-          <h1 className="text-3xl font-extrabold text-blue-950 tracking-tight">
-            Portal de Patrimonio e Infraestructura
-          </h1>
-          <p className="text-slate-500 text-sm font-medium mt-0.5">
-            Catastro público de monumentos, obras hidráulicas, parques e hitos de la <strong className="text-slate-800">{regionSel}</strong>
-          </p>
-        </div>
+          {/* Lado Derecho: Botones de Navegación / Vistas */}
+          <div className="flex bg-blue-900/60 p-1.5 rounded-xl border border-blue-800/80 text-xs font-bold shrink-0">
+            <button
+              onClick={() => setVista('publico')}
+              className={`px-4 py-2.5 rounded-lg transition-all ${
+                vista === 'publico' ? 'bg-amber-400 text-slate-950 shadow-md font-extrabold' : 'text-blue-200 hover:text-white'
+              }`}
+            >
+              🏛️ Catastro Público ({puntosPublicos.length})
+            </button>
+            <button
+              onClick={() => setVista('admin')}
+              className={`px-4 py-2.5 rounded-lg transition-all ${
+                vista === 'admin' ? 'bg-amber-400 text-slate-950 shadow-md font-extrabold' : 'text-blue-200 hover:text-white'
+              }`}
+            >
+              ⚙️ Gobernanza ({puntos.length})
+            </button>
+          </div>
 
-        <div className="flex bg-slate-200 p-1 rounded-xl text-xs font-bold">
-          <button
-            onClick={() => setVista('publico')}
-            className={`px-4 py-2 rounded-lg transition-all ${
-              vista === 'publico' ? 'bg-white text-blue-950 shadow-sm' : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            🏛️ Catastro Público ({puntosPublicos.length})
-          </button>
-          <button
-            onClick={() => setVista('admin')}
-            className={`px-4 py-2 rounded-lg transition-all ${
-              vista === 'admin' ? 'bg-blue-950 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            ⚙️ Panel Gobernanza ({puntos.length})
-          </button>
         </div>
-      </header>
+      </div>
 
       {/* VISTA PÚBLICA */}
       {vista === 'publico' && (

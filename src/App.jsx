@@ -22,7 +22,7 @@ const REGIONES_CHILE = {
     codigo: 'II',
     provincias: {
       Antofagasta: ['Antofagasta', 'Mejillones', 'Sierra Gorda', 'Taltal'],
-      El Loa: ['Calama', 'Ollagüe', 'San Pedro de Atacama'],
+      'El Loa': ['Calama', 'Ollagüe', 'San Pedro de Atacama'],
       Tocopilla: ['Tocopilla', 'María Elena']
     }
   }

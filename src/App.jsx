@@ -154,6 +154,9 @@ export default function App() {
     ? Object.values(estructuraProvincias).flat()
     : estructuraProvincias[provinciaSel] || [];
 
+  // Total País fijo (todos los hitos aprobados a nivel nacional)
+  const totalPaisAprobados = puntos.filter((item) => item.aprobado === true).length;
+
   // Filtrado base territorial (Región, Provincia, Comuna) para calcular contadores dinámicos por botón
   const puntosBaseTerritorial = puntos.filter((item) => {
     const esAprobado = item.aprobado === true;
@@ -175,7 +178,7 @@ export default function App() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6 font-sans bg-slate-50 min-h-screen">
-      {/* BANNER INSTITUCIONAL DE ALTO IMPACTO (SELECTOR GLOBAL / TODAS LAS REGIONES + TOTAL DE SITIOS) */}
+      {/* BANNER INSTITUCIONAL DE ALTO IMPACTO (SELECTOR GLOBAL + DOBLE INDICADOR) */}
       <div className="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 rounded-2xl shadow-md p-6 mb-6 text-white border border-blue-900">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           
@@ -184,7 +187,7 @@ export default function App() {
               <span>🇨🇱 Sistema Territorial de Chile</span>
             </div>
 
-            {/* SELECTOR DE REGIÓN PROTAGONISTA Y CONTADOR GRANDE DE SITIOS */}
+            {/* SELECTOR DE REGIÓN PROTAGONISTA Y DOBLE BOTÓN DE CONTADORES */}
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="bg-amber-400 text-slate-950 font-black text-sm px-3 py-1 rounded-lg shadow-sm">
@@ -216,19 +219,43 @@ export default function App() {
                 </div>
               </div>
 
-              {/* INDICADOR GRANDE DEL TOTAL DE SITIOS */}
-              <div className="flex items-center gap-3 bg-blue-950/80 border border-blue-700/70 px-4 py-2 rounded-xl shadow-inner">
-                <span className="text-3xl md:text-4xl font-black text-amber-400 leading-none tracking-tight">
-                  {puntosBaseTerritorial.length}
-                </span>
-                <div className="flex flex-col text-left leading-tight">
-                  <span className="text-xs font-extrabold uppercase tracking-wider text-white">
-                    Sitios Catastrados
+              {/* DOBLE INDICADOR: TOTAL PAÍS FIJO + APORTE SELECCIÓN */}
+              <div className="flex flex-wrap items-center gap-3">
+                {/* 1. Total País Fijo */}
+                <div className="flex items-center gap-3 bg-blue-950/90 border border-blue-700/80 px-4 py-2 rounded-xl shadow-inner">
+                  <span className="text-3xl md:text-4xl font-black text-amber-400 leading-none tracking-tight">
+                    {totalPaisAprobados}
                   </span>
-                  <span className="text-[11px] font-medium text-blue-300">
-                    {esTodasLasRegiones ? 'Total Nacional' : regionSel}
-                  </span>
+                  <div className="flex flex-col text-left leading-tight">
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-white">
+                      Total País
+                    </span>
+                    <span className="text-[11px] font-medium text-blue-300">
+                      Sitios en Chile
+                    </span>
+                  </div>
                 </div>
+
+                {/* 2. Aporte de la Selección Actual */}
+                {(!esTodasLasRegiones || provinciaSel !== 'Todas' || comunaSel !== 'Todas') && (
+                  <div className="flex items-center gap-3 bg-indigo-900/90 border border-amber-400/50 px-4 py-2 rounded-xl shadow-inner">
+                    <span className="text-3xl md:text-4xl font-black text-white leading-none tracking-tight">
+                      {puntosBaseTerritorial.length}
+                    </span>
+                    <div className="flex flex-col text-left leading-tight">
+                      <span className="text-xs font-extrabold uppercase tracking-wider text-amber-300">
+                        Aporte Selección
+                      </span>
+                      <span className="text-[11px] font-medium text-blue-200 max-w-[140px] truncate">
+                        {comunaSel !== 'Todas'
+                          ? comunaSel
+                          : provinciaSel !== 'Todas'
+                          ? `Prov. ${provinciaSel}`
+                          : regionSel}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 

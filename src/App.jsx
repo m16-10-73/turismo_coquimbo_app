@@ -144,7 +144,7 @@ export default function App() {
   
   const regionData = !esTodasLasRegiones && REGIONES_CHILE[regionSel] 
     ? REGIONES_CHILE[regionSel] 
-    : { codigo: 'NC', provincias: Object.values(REGIONES_CHILE).reduce((acc, reg) => ({ ...acc, ...reg.provincias }), {}) };
+    : { codigo: 'CL', provincias: Object.values(REGIONES_CHILE).reduce((acc, reg) => ({ ...acc, ...reg.provincias }), {}) };
 
   const estructuraProvincias = regionData.provincias;
   const provinciasDisponibles = Object.keys(estructuraProvincias);
@@ -175,42 +175,59 @@ export default function App() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6 font-sans bg-slate-50 min-h-screen">
-      {/* BANNER INSTITUCIONAL DE ALTO IMPACTO (SELECTOR GLOBAL / TODAS LAS REGIONES) */}
+      {/* BANNER INSTITUCIONAL DE ALTO IMPACTO (SELECTOR GLOBAL / TODAS LAS REGIONES + TOTAL DE SITIOS) */}
       <div className="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 rounded-2xl shadow-md p-6 mb-6 text-white border border-blue-900">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           
-          <div className="space-y-3">
+          <div className="space-y-3 w-full">
             <div className="inline-flex items-center gap-2 bg-blue-900/80 border border-blue-700/60 px-3 py-1 rounded-full text-xs font-semibold tracking-wider text-blue-200 uppercase">
               <span>🇨🇱 Sistema Territorial de Chile</span>
             </div>
 
-            {/* SELECTOR DE REGIÓN PROTAGONISTA (CON OPCIÓN "TODAS LAS REGIONES") */}
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="bg-amber-400 text-slate-950 font-black text-sm px-3 py-1 rounded-lg shadow-sm">
-                [{esTodasLasRegiones ? 'NORTE DE CHILE' : `${regionData.codigo}ª REGIÓN`}]
-              </span>
-              
-              <div className="relative inline-block">
-                <select
-                  value={regionSel}
-                  onChange={(e) => {
-                    setRegionSel(e.target.value);
-                    setProvinciaSel('Todas');
-                    setComunaSel('Todas');
-                  }}
-                  className="appearance-none bg-white/10 hover:bg-white/15 text-white font-extrabold text-xl md:text-2xl px-4 py-1.5 pr-10 rounded-xl border border-white/20 outline-none cursor-pointer transition-all shadow-inner"
-                >
-                  <option value="Todas las Regiones" className="bg-slate-900 font-bold text-white">
-                    Todas las Regiones (Norte de Chile)
-                  </option>
-                  {Object.keys(REGIONES_CHILE).map((reg) => (
-                    <option key={reg} value={reg} className="bg-slate-900 font-bold text-white">
-                      {reg}
+            {/* SELECTOR DE REGIÓN PROTAGONISTA Y CONTADOR GRANDE DE SITIOS */}
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="bg-amber-400 text-slate-950 font-black text-sm px-3 py-1 rounded-lg shadow-sm">
+                  [{esTodasLasRegiones ? 'CHILE' : `${regionData.codigo}ª REGIÓN`}]
+                </span>
+                
+                <div className="relative inline-block">
+                  <select
+                    value={regionSel}
+                    onChange={(e) => {
+                      setRegionSel(e.target.value);
+                      setProvinciaSel('Todas');
+                      setComunaSel('Todas');
+                    }}
+                    className="appearance-none bg-white/10 hover:bg-white/15 text-white font-extrabold text-xl md:text-2xl px-4 py-1.5 pr-10 rounded-xl border border-white/20 outline-none cursor-pointer transition-all shadow-inner"
+                  >
+                    <option value="Todas las Regiones" className="bg-slate-900 font-bold text-white">
+                      Todas las Regiones
                     </option>
-                  ))}
-                </select>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-amber-400 font-bold">
-                  ▼
+                    {Object.keys(REGIONES_CHILE).map((reg) => (
+                      <option key={reg} value={reg} className="bg-slate-900 font-bold text-white">
+                        {reg}
+                      </option>
+                    ))}
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-amber-400 font-bold">
+                    ▼
+                  </div>
+                </div>
+              </div>
+
+              {/* INDICADOR GRANDE DEL TOTAL DE SITIOS */}
+              <div className="flex items-center gap-3 bg-blue-950/80 border border-blue-700/70 px-4 py-2 rounded-xl shadow-inner">
+                <span className="text-3xl md:text-4xl font-black text-amber-400 leading-none tracking-tight">
+                  {puntosBaseTerritorial.length}
+                </span>
+                <div className="flex flex-col text-left leading-tight">
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-white">
+                    Sitios Catastrados
+                  </span>
+                  <span className="text-[11px] font-medium text-blue-300">
+                    {esTodasLasRegiones ? 'Total Nacional' : regionSel}
+                  </span>
                 </div>
               </div>
             </div>

@@ -178,7 +178,7 @@ export default function App() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6 font-sans bg-slate-50 min-h-screen">
-      {/* BANNER INSTITUCIONAL DE ALTO IMPACTO (SELECTOR GLOBAL + DOBLE INDICADOR) */}
+      {/* BANNER INSTITUCIONAL DE ALTO IMPACTO (SELECTOR GLOBAL + DOBLE INDICADOR LADO A LADO) */}
       <div className="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 rounded-2xl shadow-md p-6 mb-6 text-white border border-blue-900">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           
@@ -187,7 +187,7 @@ export default function App() {
               <span>🇨🇱 Sistema Territorial de Chile</span>
             </div>
 
-            {/* SELECTOR DE REGIÓN PROTAGONISTA Y DOBLE BOTÓN DE CONTADORES */}
+            {/* SELECTOR DE REGIÓN Y CONTADORES LADO A LADO */}
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="bg-amber-400 text-slate-950 font-black text-sm px-3 py-1 rounded-lg shadow-sm">
@@ -219,9 +219,30 @@ export default function App() {
                 </div>
               </div>
 
-              {/* DOBLE INDICADOR: TOTAL PAÍS FIJO + APORTE SELECCIÓN */}
+              {/* CONTADORES: 1. DINÁMICO DE SELECCIÓN + 2. TOTAL PAÍS */}
               <div className="flex flex-wrap items-center gap-3">
-                {/* 1. Total País Fijo */}
+                {/* 1. Indicador Dinámico de la Selección Actual */}
+                <div className="flex items-center gap-3 bg-indigo-900/90 border border-amber-400/50 px-4 py-2 rounded-xl shadow-inner">
+                  <span className="text-3xl md:text-4xl font-black text-white leading-none tracking-tight">
+                    {puntosBaseTerritorial.length}
+                  </span>
+                  <div className="flex flex-col text-left leading-tight">
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-amber-300">
+                      {esTodasLasRegiones && provinciaSel === 'Todas' && comunaSel === 'Todas'
+                        ? 'Todas las Regiones'
+                        : comunaSel !== 'Todas'
+                        ? comunaSel
+                        : provinciaSel !== 'Todas'
+                        ? `Prov. ${provinciaSel}`
+                        : regionSel}
+                    </span>
+                    <span className="text-[11px] font-medium text-blue-200">
+                      Sitios Catastrados
+                    </span>
+                  </div>
+                </div>
+
+                {/* 2. Indicador Fijo Total País */}
                 <div className="flex items-center gap-3 bg-blue-950/90 border border-blue-700/80 px-4 py-2 rounded-xl shadow-inner">
                   <span className="text-3xl md:text-4xl font-black text-amber-400 leading-none tracking-tight">
                     {totalPaisAprobados}
@@ -235,27 +256,6 @@ export default function App() {
                     </span>
                   </div>
                 </div>
-
-                {/* 2. Aporte de la Selección Actual */}
-                {(!esTodasLasRegiones || provinciaSel !== 'Todas' || comunaSel !== 'Todas') && (
-                  <div className="flex items-center gap-3 bg-indigo-900/90 border border-amber-400/50 px-4 py-2 rounded-xl shadow-inner">
-                    <span className="text-3xl md:text-4xl font-black text-white leading-none tracking-tight">
-                      {puntosBaseTerritorial.length}
-                    </span>
-                    <div className="flex flex-col text-left leading-tight">
-                      <span className="text-xs font-extrabold uppercase tracking-wider text-amber-300">
-                        Aporte Selección
-                      </span>
-                      <span className="text-[11px] font-medium text-blue-200 max-w-[140px] truncate">
-                        {comunaSel !== 'Todas'
-                          ? comunaSel
-                          : provinciaSel !== 'Todas'
-                          ? `Prov. ${provinciaSel}`
-                          : regionSel}
-                      </span>
-                    </div>
-                  </div>
-                )}
               </div>
             </div>
 

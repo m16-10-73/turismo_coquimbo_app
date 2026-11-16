@@ -47,11 +47,18 @@ export default function App() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
 
-  // Selector de Vista: 'publico' | 'admin'
+  // Selector de Vista: 'publico' | 'admin' (Permitir acceso admin solo mediante ?admin=true en la URL)
   const [vista, setVista] = useState('publico');
 
-  // Filtros territoriales globales
-  const [regionSel, setRegionSel] = useState('Región de Coquimbo');
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('admin') === 'true') {
+      setVista('admin');
+    }
+  }, []);
+
+  // Filtros territoriales globales ('Todas las Regiones' como estado por defecto)
+  const [regionSel, setRegionSel] = useState('Todas las Regiones');
   const [provinciaSel, setProvinciaSel] = useState('Todas');
   const [comunaSel, setComunaSel] = useState('Todas');
   const [categoriaSel, setCategoriaSel] = useState('Todas');
@@ -132,8 +139,13 @@ export default function App() {
     alert('¡Hito patrimonial registrado exitosamente!');
   };
 
-  // Obtener datos territoriales de la región seleccionada
-  const regionData = REGIONES_CHILE[regionSel] || { codigo: 'CL', provincias: {} };
+  // Obtener datos territoriales según si se seleccionó una región específica o "Todas las Regiones"
+  const esTodasLasRegiones = regionSel === 'Todas las Regiones';
+  
+  const regionData = !esTodasLasRegiones && REGIONES_CHILE[regionSel] 
+    ? REGIONES_CHILE[regionSel] 
+    : { codigo: 'NC', provincias: Object.values(REGIONES_CHILE).reduce((acc, reg) => ({ ...acc, ...reg.provincias }), {}) };
+
   const estructuraProvincias = regionData.provincias;
   const provinciasDisponibles = Object.keys(estructuraProvincias);
 
@@ -146,7 +158,7 @@ export default function App() {
   const puntosBaseTerritorial = puntos.filter((item) => {
     const esAprobado = item.aprobado === true;
     
-    const comunaPerteneceARegion = Object.values(estructuraProvincias).some((comunasArray) =>
+    const comunaPerteneceARegion = esTodasLasRegiones || Object.values(estructuraProvincias).some((comunasArray) =>
       comunasArray.includes(item.comuna)
     );
 
@@ -163,7 +175,7 @@ export default function App() {
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6 font-sans bg-slate-50 min-h-screen">
-      {/* BANNER INSTITUCIONAL DE ALTO IMPACTO (REGIÓN DESTACADA) */}
+      {/* BANNER INSTITUCIONAL DE ALTO IMPACTO (SELECTOR GLOBAL / TODAS LAS REGIONES) */}
       <div className="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 rounded-2xl shadow-md p-6 mb-6 text-white border border-blue-900">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
           
@@ -172,10 +184,10 @@ export default function App() {
               <span>🇨🇱 Sistema Territorial de Chile</span>
             </div>
 
-            {/* SELECTOR DE REGIÓN PROTAGONISTA */}
+            {/* SELECTOR DE REGIÓN PROTAGONISTA (CON OPCIÓN "TODAS LAS REGIONES") */}
             <div className="flex flex-wrap items-center gap-3">
               <span className="bg-amber-400 text-slate-950 font-black text-sm px-3 py-1 rounded-lg shadow-sm">
-                [{regionData.codigo}ª REGIÓN]
+                [{esTodasLasRegiones ? 'NORTE DE CHILE' : `${regionData.codigo}ª REGIÓN`}]
               </span>
               
               <div className="relative inline-block">
@@ -186,8 +198,11 @@ export default function App() {
                     setProvinciaSel('Todas');
                     setComunaSel('Todas');
                   }}
-                  className="appearance-none bg-white/10 hover:bg-white/15 text-white font-extrabold text-2xl md:text-3xl px-4 py-1.5 pr-10 rounded-xl border border-white/20 outline-none cursor-pointer transition-all shadow-inner"
+                  className="appearance-none bg-white/10 hover:bg-white/15 text-white font-extrabold text-xl md:text-2xl px-4 py-1.5 pr-10 rounded-xl border border-white/20 outline-none cursor-pointer transition-all shadow-inner"
                 >
+                  <option value="Todas las Regiones" className="bg-slate-900 font-bold text-white">
+                    Todas las Regiones (Norte de Chile)
+                  </option>
                   {Object.keys(REGIONES_CHILE).map((reg) => (
                     <option key={reg} value={reg} className="bg-slate-900 font-bold text-white">
                       {reg}
@@ -205,24 +220,27 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex bg-blue-900/60 p-1.5 rounded-xl border border-blue-800/80 text-xs font-bold shrink-0">
-            <button
-              onClick={() => setVista('publico')}
-              className={`px-4 py-2.5 rounded-lg transition-all ${
-                vista === 'publico' ? 'bg-amber-400 text-slate-950 shadow-md font-extrabold' : 'text-blue-200 hover:text-white'
-              }`}
-            >
-              🏛️ Catastro Público ({puntosPublicos.length})
-            </button>
-            <button
-              onClick={() => setVista('admin')}
-              className={`px-4 py-2.5 rounded-lg transition-all ${
-                vista === 'admin' ? 'bg-amber-400 text-slate-950 shadow-md font-extrabold' : 'text-blue-200 hover:text-white'
-              }`}
-            >
-              ⚙️ Gobernanza ({puntos.length})
-            </button>
-          </div>
+          {/* Selector de Vista (Oculto al usuario general, visible solo mediante ?admin=true) */}
+          {vista === 'admin' && (
+            <div className="flex bg-blue-900/60 p-1.5 rounded-xl border border-blue-800/80 text-xs font-bold shrink-0">
+              <button
+                onClick={() => setVista('publico')}
+                className={`px-4 py-2.5 rounded-lg transition-all ${
+                  vista === 'publico' ? 'bg-amber-400 text-slate-950 shadow-md font-extrabold' : 'text-blue-200 hover:text-white'
+                }`}
+              >
+                🏛️ Catastro Público ({puntosPublicos.length})
+              </button>
+              <button
+                onClick={() => setVista('admin')}
+                className={`px-4 py-2.5 rounded-lg transition-all ${
+                  vista === 'admin' ? 'bg-amber-400 text-slate-950 shadow-md font-extrabold' : 'text-blue-200 hover:text-white'
+                }`}
+              >
+                ⚙️ Gobernanza ({puntos.length})
+              </button>
+            </div>
+          )}
 
         </div>
       </div>
@@ -234,7 +252,7 @@ export default function App() {
           <section className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6 space-y-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-2">
-                1. Seleccionar Provincia ({regionSel}):
+                1. Seleccionar Provincia ({esTodasLasRegiones ? 'Todas las Regiones' : regionSel}):
               </span>
               <div className="flex flex-wrap gap-2">
                 <button
@@ -245,7 +263,7 @@ export default function App() {
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
-                  🌐 Toda la Región
+                  🌐 Todas las Provincias
                 </button>
                 {provinciasDisponibles.map((prov) => (
                   <button
@@ -334,7 +352,7 @@ export default function App() {
           {/* Grid de Hitos */}
           {puntosPublicos.length === 0 ? (
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center text-slate-500">
-              <p className="text-lg font-semibold mb-1">No hay hitos catastrados para esta selección en la {regionSel}.</p>
+              <p className="text-lg font-semibold mb-1">No hay hitos catastrados para esta selección en {regionSel}.</p>
               <p className="text-xs text-slate-400">Puedes ingresar nuevos registros públicos desde el Panel de Gobernanza.</p>
             </div>
           ) : (
@@ -388,7 +406,7 @@ export default function App() {
         </main>
       )}
 
-      {/* PANEL ADMIN */}
+      {/* PANEL ADMIN (OCULTO A MENOS QUE SE ACCEDA CON ?admin=true) */}
       {vista === 'admin' && (
         <main className="space-y-8">
           <section className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
